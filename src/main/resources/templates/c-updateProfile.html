@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../c-styles.css">
+    <title>Update Profile Page</title>
+  </head>
+  <body sec:authorize="hasRole('ROLE_USER')">
+    <nav class="navbar navbar-custom navbar-expand-lg navbar-dark ">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Bloodmobile</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link active" th:href="@{/}">Home</a>
+              <a class="nav-link" th:href="@{/profile/status}" sec:authorize="hasRole('ROLE_USER')">Profile</a>
+              <a class="nav-link" th:href="@{/logout}" sec:authorize="isAuthenticated()">Logout</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+    <!-- top container-->
+    <div class="container-fluid top-container bg-light mt-2">
+        <a href="javascript:history.back()" class="btn btn-warning btn-sm"> Back</a>
+    </div>
+    <div class="text-center">
+        <h1 class="text-gray">Update Profile:</h1>
+    </div>
+    
+    <!-- main container-->
+    <div class="container main-container d-flex align-items-center justify-content-center">
+        <!-- center container-->
+        <div class="col-sm-4" >
+            <div class="display-container bg-light">
+                
+                <div class="login-form-container">
+                    <form th:action="@{/profile/processProfileUpdate}" method="POST" class="form-horizontal">
+                        <!--First Name-->
+                        <div class="mb-3">
+                            <label for="firstNameInput" class="form-label">First name:</label>
+                            <input type="text" th:name="firstName" th:value="${theUser.firstName}"class="form-control" id="firstNameInput" required>
+                        </div>
+                        <!--Last Name-->
+                        <div class="mb-3">
+                            <label for="lastNameInput" class="form-label">Last name:</label>
+                            <input type="text" th:name="lastName" th:value="${theUser.lastName}"class="form-control" id="lastNameInput" required>
+                        </div>
+                        <!--Date of Birth-->
+                        <div class="mb-3">
+                            <label for="birthday" class="form-label">Date of birth:</label>
+                            <input type="date" id="birthday" th:name="dateOfBirth" th:value="${theUser.dateOfBirth}" class="form-control" required>
+                        </div>
+                        <!--Email-->
+                        <div class="mb-3">
+                            <label for="emailInput" class="form-label">Email:</label>
+                            <input type="email" th:name="email" th:value="${theUser.email}" class="form-control" id="emailInput" required>
+                        </div>
+                        <!--Phone-->
+                        <div class="mb-3">
+                            <label for="phoneInput" class="form-label">Phone number:</label>
+                            <input type="tel" th:name="phone" th:value="${theUser.phone}" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                class="form-control" id="phoneInput" required>
+                        </div>
+                        
+
+                        <button type="submit" class="btn btn-outline-success btn-lg">Submit</button>
+                    </form>
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- bottom container-->
+    <div class="container-fluid bottom-container bg-light">
+    </div>
+    
+    <div class="mt-2 p-5 footer-bg text-light text-center">
+        <p>Questions? Contact us at (555) 555-5555</p>
+        <p>©2022 Bloodmobile, LLC</p>
+    </div>
+    
+    <script>
+        window.onload = function() {
+            var date = new Date();
+            var dd = date.getDate();
+            var mm = date.getMonth() + 1;
+            var yyyy = date.getFullYear();
+      
+            //Add a zero if one Digit (eg: 05,09)
+            if (dd < 10) {
+              dd = "0" + dd;
+            }
+      
+            //Add a zero if one Digit (eg: 05,09)
+            if (mm < 10) {
+              mm = "0" + mm;
+            }
+      
+            //set max year to 17 years ago
+            maxYear = yyyy - 17; 
+      
+      
+            var max = maxYear + "-" + mm + "-" + dd;
+      
+           
+            document.getElementById("birthday").setAttribute("max", max);
+          };
+      
+      </script>
+  </body>
+</html>

@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../c-styles.css">
+    <title>Home Page</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-custom navbar-expand-lg navbar-dark ">
+        <div class="container-fluid">
+          <a class="navbar-brand" th:href="@{/}">Bloodmobile</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link active" th:href="@{/}">Home</a>
+              <a class="nav-link" href="#" aria-current="page" sec:authorize="hasRole('ROLE_USER')">Profile</a>
+              <a class="nav-link" th:href="@{/schedule/getLocations}" sec:authorize="hasRole('ROLE_USER')">Schedule Appointment</a>
+              <a class="nav-link" href="#" sec:authorize="hasRole('ROLE_MANAGER')">Manage Appointments</a>
+              <a class="nav-link" th:href="@{/logout}" sec:authorize="isAuthenticated()">Logout</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+    <!-- top container-->
+    <div class="container-fluid top-container bg-light mt-2">
+        <h2 class="text-darkgray" th:text="'Hello, ' + ${session.user.userName} + '!'"></h2>
+    </div>
+
+    
+    <!-- main container-->
+    <div class="container main-container d-flex justify-content-center mt-5" sec:authorize="hasRole('ROLE_USER')">
+        
+        <div class="row" style="width:100%" >
+          
+          <!-- profile container-->
+          <div class="inner-container col-sm-4">
+            <div class="blue-container bg-light">
+                <div class="blue-container-header text-center">
+                    Profile
+                </div>
+                <div class="table-container">
+                    <table class="table">
+                        <thead class="table-dark">  
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>User name:</td>
+                                <td th:text="${theUser.userName}"></td>
+                            </tr>
+                            <tr>
+                                <td>First name:</td>
+                                <td th:text="${theUser.firstName}"></td>
+                            </tr>
+                            <tr>
+                                <td>Last name:</td>
+                                <td th:text="${theUser.lastName}"></td>
+                            </tr>
+                            <tr>
+                                <td>Date of birth:</td>
+                                <td th:text="${birthday}"></td>
+                            </tr>
+                            <tr>
+                                <td>Email:</td>
+                                <td th:text="${theUser.email}"></td>
+                            </tr>
+                            <tr>
+                                <td>Phone:</td>
+                                <td th:text="${theUser.phone}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="blue-container-footer text-center">
+                    <a th:href="@{/profile/updateProfile}" class="btn btn-outline-info btn-lg profile-display-container-button" role="button" aria-pressed="true">Edit profile</a> 
+                </div>
+            </div>
+          </div>
+
+          <!-- upcoming appointments container-->
+          <div class="inner-container col-sm-8">
+                <div class="display-container bg-light inner-container">
+                    <div class="display-container-header text-center">
+                        Scheduled Appointments
+                    </div>
+                    <div th:if="${upcoming == null}" class="text-center">
+                      <br><span>You have no scheduled appointments</span><br><br>
+                    </div>
+                    <div th:if="${upcoming}" class="table-container">
+                    <table class="table">
+                        <thead class="table-dark">  
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Date:</td>
+                                <td th:text="${appDate}"></td>
+                            </tr>
+                            <tr>
+                                <td>Time:</td>
+                                <td th:text="${appTime}"></td>
+                            </tr>
+                            <tr>
+                                <td>Location:</td>
+                                <td th:text="${upcoming.location.getLocationDesc()}"></td>
+                            </tr>
+                            <tr>
+                                <td>Street Address:</td>
+                                <td th:text="${upcoming.location.getStreetAddress()}"></td>
+                            </tr>
+                            <tr>
+                                <td>City:</td>
+                                <td th:text="${upcoming.location.getCity()}"></td>
+                            </tr>
+                            <tr>
+                                <td>State:</td>
+                                <td th:text="${upcoming.location.getState()}"></td>
+                            </tr>
+                            <tr>
+                                <td>Zip code:</td>
+                                <td th:text="${upcoming.location.getZipCode()}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+              		</div>
+               
+                    <!--  add cancel appointment button -->
+                    <div th:if="${upcoming}" class="display-container-footer text-center">
+                        <a th:href="@{/schedule/cancelAppointment(appointmentId=${upcoming.id})}" 
+                           class="btn btn-outline-danger btn-lg profile-display-container-button" 
+                           role="button" aria-pressed="true" 
+                           onclick="if (!(confirm('Are you sure you want to cancel this appointment?'))) return false">Cancel appointment</a> 
+                    </div>
+                </div>
+
+	            <!-- previous appointments container-->
+	            <div class="darkGray-container bg-light">  
+	                <div class="darkGray-container-header text-center">
+	                    Previous Appointments
+	                </div>
+	                  <!--<div th:if="${previous != null}">-->
+	                  <div th:if="${!previous.isEmpty()}">
+							<table class="table table-bordered table-striped text-center">
+								<thead class="text_dark">
+									<tr>
+										<th> Date</th>
+										<th> Location</th>
+										<th> City</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="text_dark" style="font-size:14px;" th:each="tempAppointment : ${previous}">
+										<td th:text="${tempAppointment.appointmentDate}" />
+										<td th:text="${tempAppointment.location.locationDesc}" />
+										<td th:text="${tempAppointment.location.city}" />
+									</tr>
+								</tbody>
+			        		</table>
+			        	</div>
+	        			<!--<div th:if="${previous == null}">-->
+	        			<div th:if="${previous.isEmpty()}" class="text-center">
+				        	<br><span class="text_dark">You have no previous appointments</span><br><br>
+				        </div>
+	            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- bottom container-->
+    <div class="container-fluid bottom-container bg-light">
+        <!--<h1>bottom container</h1>-->
+    </div>
+    
+    <div class="mt-2 p-5 footer-bg text-light text-center">
+        <p>Questions? Contact us at (555) 555-5555</p>
+        <p>©2022 Bloodmobile, LLC</p>
+    </div>
+    
+  </body>
+</html>

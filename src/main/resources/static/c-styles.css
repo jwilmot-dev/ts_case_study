@@ -1,0 +1,107 @@
+.navbar-custom{
+    background-color: rgb(138, 6, 6);
+}
+.top-container, .bottom-container{
+    min-height: 48px
+}
+.main-container{
+    min-height:500px;
+}
+.main-container-login{
+    min-height:500px;
+    background-image: url('./bigRedBus.jpg');
+    background-repeat: no-repeat;
+}
+.footer-bg{
+    background-color: #373737;
+}
+.blue-container{
+  
+    border-radius: 10px;
+    border: 2px solid #026D6A;
+    margin: 2px;
+    transition: box-shadow 0.5s;
+}
+.blue-container-header{
+    background-color: #026D6A;
+    color: white;
+    font-size: 24px;
+    height: 48px;
+}
+.blue-container-footer{
+    background-color: #026D6A;
+}
+.darkGray-container{
+  
+    border-radius: 10px;
+    border: 2px solid #373737;
+    margin: 2px;
+    transition: box-shadow 0.5s;
+}
+.darkGray-container-header{
+    background-color: #373737;
+    color: white;
+    font-size: 24px;
+    height: 48px;
+}
+.darkGray-container-footer{
+    background-color: #373737;
+}
+.display-container{
+  
+    border-radius: 10px;
+    border: 2px solid rgb(138, 6, 6);
+    margin: 2px;
+    transition: box-shadow 0.5s;
+}
+.display-container:hover, .blue-container:hover, .darkGray-container:hover {
+    box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+}
+.display-container-header{
+    background-color: rgb(138, 6, 6);
+    color: white;
+    font-size: 24px;
+    height: 48px;
+}
+.display-container-footer{
+    background-color: rgb(138, 6, 6);
+}
+.home-display-text{
+    margin: 24px;
+}
+.home-display-container-button{
+    background-color: #FFFFFF;
+    margin: 12px;
+    height:80px; 
+    line-height:60px;
+}
+.inner-container{
+    margin-bottom:12px;
+}
+.login-form-container{
+    padding: 12px;
+}
+.login-row-box{
+    display:flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+}
+.profile-display-container-button{
+    background-color: #FFFFFF;
+    margin: 12px;
+    height:60px; 
+    line-height:40px;
+}
+.sample-display-container-footer{
+    background-color: rgb(138, 6, 6);
+    padding: 2%;
+}
+.table-container{
+    padding:12px;
+}
+.text-gray{
+    color: gray;
+}
+.text-darkgray{
+    color: #373737;
+}

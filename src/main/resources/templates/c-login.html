@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./c-styles.css">
+    <title>Login Page</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-custom navbar-expand-lg navbar-dark ">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Bloodmobile</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+            </div>
+          </div>
+        </div>
+      </nav>
+
+    <!-- top container-->
+    <div class="container-fluid top-container bg-light mt-2 text-center">
+        <h3 class="text-darkgray">Donate Blood, Save Lives! <span class="text-gray">&nbsp Find a mobile blood donation unit near you.</span></h3>
+    </div>
+
+    <!-- main container-->
+    <div class="container main-container-login d-flex align-items-center justify-content-center mt-4">
+        <div class="row login-row-box" style="width:100%">
+          
+          <!-- login container-->
+          <div class="col-md-4">
+            <div class="display-container bg-light"> 
+                <div class="display-container-header  text-center ">
+                    Sign In
+                </div>
+                <div class="login-form-container">
+                    <form th:action="@{/authenticateTheUser}" 
+                    method="POST" class="form-horizontal">
+                        <!-- Place for messages: error, alert etc ... -->
+                        <div class="form-group">
+                            <div class="col-xs-15">
+                                <div>
+                                
+                                    <!-- Check for login error -->																	
+                                    <div th:if="${param.error}" class="alert alert-danger col-xs-offset-1 col-xs-10">
+                                        Invalid username and password.
+                                    </div>
+        
+                                    <!-- Check for logout -->
+                                    <div th:if="${param.logout}"class="alert alert-success col-xs-offset-1 col-xs-10">
+                                        You have been logged out.
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="usernameInput" class="form-label">Enter your username:</label>
+                            <input type="text" name="username" placeholder="username" class="form-control" id="usernameInput">
+                        </div>
+                        <div class="mb-3">
+                            <label for="userPass" class="form-label">Enter your password:</label>
+                            <input type="password" name="password" placeholder="password" class="form-control" id="userPass">
+                        </div>
+                        <button type="submit" class="btn btn-success btn-lg">Submit</button>
+                    </form>
+                    <hr>
+                    <div>
+                    	<!-- add register button -->
+                        <span>Don't have an account?</span><br>
+                        <a th:href="@{/register/showRegistrationForm}" class="btn btn-sm btn-outline-primary mt-2" role="button" aria-pressed="true">Register here</a>
+                    </div>
+                </div>
+                
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- bottom container-->
+    <div class="container-fluid bottom-container bg-light">
+    </div>
+    
+    <div class="mt-2 p-5 footer-bg text-light text-center">
+        <p>Questions? Contact us at (555) 555-5555</p>
+        <p>©2022 Bloodmobile, LLC</p>
+    </div>
+    
+  </body>
+</html>

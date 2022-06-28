@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./c-styles.css">
+    <title>Home Page</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-custom navbar-expand-lg navbar-dark ">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Bloodmobile</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link" th:href="@{/profile/status}" sec:authorize="hasRole('ROLE_USER')">Profile</a>
+              <a class="nav-link" th:href="@{/schedule/getLocations}" sec:authorize="hasRole('ROLE_USER')">Schedule Appointment</a>
+              <a class="nav-link" href="#" sec:authorize="hasRole('ROLE_MANAGER')">Manage Appointments</a>
+              <a class="nav-link" th:href="@{/logout}" sec:authorize="isAuthenticated()">Logout</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+    <!-- top container-->
+    <div class="container-fluid top-container bg-light mt-2">
+        <h2 class="text-darkgray" th:text="'Hello, ' + ${session.user.userName} + '!'"></h2>
+    </div>
+    <div class="text-center">
+        <h1 class="text-gray">Choose an option:</h1>
+    </div>
+    
+    <!-- main container-->
+    <div class="container main-container d-flex align-items-center justify-content-center">
+        
+     	<div class="row" style="width:100%"  sec:authorize="hasRole('ROLE_MANAGER')">   
+        
+        	<!-- manage current appointments container-->
+	        <div class="col-sm-6">
+	            <div class="display-container text-center bg-light">
+	                <div>
+	                    <h2 class="home-display-text">Manage current<br>appointments</h2>
+	                </div>
+	                <div class="display-container-footer">
+	                    <a th:href="@{/schedule/managerGetLocations}" 
+	                    	class="btn btn-outline-success btn-lg home-display-container-button" 
+	                    	role="button" aria-pressed="true">Manage appointments</a> 
+	                </div>
+	            </div>
+	        </div>
+	        <!-- create new appointments container-->
+	        <div class="col-sm-6">
+	            <div class="display-container text-center bg-light">
+	                <div>
+	                    <h2 class="home-display-text">Create new appointment<br>slots and locations</h2>
+	                </div>
+	                <div class="display-container-footer">
+	                    <a th:href="@{/locations/chooseCreateOption}" 
+	                    	class="btn btn-outline-primary btn-lg home-display-container-button" 
+	                    	role="button" aria-pressed="true">Create new</a> 
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+        
+        
+        
+        <div class="row" style="width:100%"  sec:authorize="hasRole('ROLE_USER')">
+          
+          <!-- View profile container-->
+          <div class="inner-container col-sm-6">
+            <div class="display-container text-center bg-light">
+                <div>
+                    <h2 class="home-display-text">View your profile,<br> previous and upcoming<br>appointments</h2>
+                </div>
+                <div class="display-container-footer">
+                    <a th:href="@{/profile/status}" class="btn btn-outline-primary btn-lg home-display-container-button" role="button" aria-pressed="true">View profile</a> 
+                </div>
+            </div>
+          </div>
+          <!-- make appointment container-->
+          <div class="col-sm-6">
+            <div class="display-container text-center bg-light">  
+                <div>
+                    <h2 class="home-display-text">Find a bloodmobile<br>location and schedule<br> an appointment</h2>
+                </div>
+                <div class="display-container-footer">
+                    <a th:href="@{/schedule/getLocations}" class="btn btn-outline-success btn-lg home-display-container-button" role="button" aria-pressed="true">Schedule appointment</a> 
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- bottom container-->
+    <div class="container-fluid bottom-container bg-light">
+        <!--<h1>bottom container</h1>-->
+    </div>
+    
+    <div class="mt-2 p-5 footer-bg text-light text-center">
+        <p>Questions? Contact us at (555) 555-5555</p>
+        <p>©2022 Bloodmobile, LLC</p>
+    </div>
+    
+  </body>
+</html>

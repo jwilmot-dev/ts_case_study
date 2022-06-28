@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../c-styles.css">
+    <title>Select Date Page</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-custom navbar-expand-lg navbar-dark ">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Bloodmobile</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link active" th:href="@{/}">Home</a>
+              <a class="nav-link" th:href="@{/profile/status}" sec:authorize="hasRole('ROLE_USER')">Profile</a>
+              <a class="nav-link" th:href="@{/logout}" sec:authorize="isAuthenticated()">Logout</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+    <!-- top container-->
+    <div class="container-fluid top-container bg-light mt-2">
+        <a th:href="@{/schedule/getLocations}" class="btn btn-warning btn-sm"> Start Over</a>
+    </div>
+    <div class="text-center">
+        <h1 class="text-gray">Select a date:</h1>
+    </div>
+    
+    <!-- main container-->
+    <div class="container main-container d-flex align-items-center justify-content-center"  sec:authorize="hasRole('ROLE_USER')">
+
+        <div class="row" style="width:100%" >
+        
+        <!-- location selected container-->
+        <div class="col-sm-4">
+            <div class="display-container  bg-light">
+                <div class="display-container-header text-center">
+                    Selected Location
+                </div>
+                <div class="table-container">
+                    <table class="table">
+                        <thead class="table-dark">  
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Location:</td>
+                                <td th:text="${location.getLocationDesc()}"></td>
+                            </tr>
+                            <tr>
+                                <td>Street Address:</td>
+                                <td th:text="${location.getStreetAddress()}"></td>
+                            </tr>
+                            <tr>
+                                <td>City:</td>
+                                <td th:text="${location.getCity()}"></td>
+                            </tr>
+                            <tr>
+                                <td>State:</td>
+                                <td th:text="${location.state}"></td>
+                            </tr>
+                            <tr>
+                                <td>Zip code:</td>
+                                <td th:text="${location.zipCode}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+          <!-- Date container-->
+          <div class="inner-container col-sm-4">
+            <div class="display-container text-center bg-light">
+                <div class="table-container">
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th> Dates</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="tempDate : ${dates}">
+                                <td>
+	                                <a th:href="@{/schedule/getOpenSlots(locationId=${location.id}, date=${tempDate})}" 
+	                                    th:text="${tempDate}" class="btn btn-primary btn-sm"> 
+	                                </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- bottom container-->
+    <div class="container-fluid bottom-container bg-light">
+    </div>
+    
+    <div class="mt-2 p-5 footer-bg text-light text-center">
+        <p>Questions? Contact us at (555) 555-5555</p>
+        <p>©2022 Bloodmobile, LLC</p>
+    </div>
+    
+  </body>
+</html>
