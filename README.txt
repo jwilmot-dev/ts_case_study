@@ -1,37 +1,29 @@
-SPRING SECURITY, THYMELEAF and Spring Boot
-==========================================
+TEKSystems Capstone Project: Appointment Scheduler - Bloodmobile
+by Justin Wilmot 6/27/2022
 
-A student asked for a Thymeleaf version of the application. This version makes use of Spring Boot
+Brief description: 
+An appointment setting program for a bloodmobile.
 
-Full solution code is available at this link:
+Program functionality:
+Users can create a profile, edit their profile, search and schedule for appointments, and manage their appointments.
+Managers (bloodmobile employees/admins) can manage the appointments and connect the blood samples to the appointments.
+Managers can also create new locations and new appointment slots.
 
+The enclosed MySQL script contains some intial data population along with usernames and passowords for a test user and manager. 
+See the script for details.
 
-For docs on Spring MVC and Thymeleaf integration, see this link
-- https://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html
+Program background:
+A appointment scheduler had been an idea that was tossed around a few times during my undergraduate degree.  This 
+bootcamp full-stack training program seemed like the perfect time to implement it as both the user and manager utilize 
+CRUD commands.  My intial attempt is to keep the program simple, clean, and organized so users can find information quickly.
 
-For docs on Spring Security and Thymeleaf integration, see this link
-- https://www.thymeleaf.org/doc/articles/springsecurity.html
+Program technical challenges:
+All things Spring presented me with brand new challenges and was difficult at first to absorb and implement.  Technically,
+this program is version 2 as version 1 was scrapped after it became a frankenmonster amalgamation of too many bits of foreign 
+programs.  The good news is the knowledge from that first disaster helped me build version 2 from scratch in just two days.  That said, 
+much of the security and authentication code was ported from one of our class labs.
 
-
-A couple of high-level changes
-
-1. Add the Thymeleaf pom entries
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.thymeleaf.extras</groupId>
-			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
-		</dependency>
-
-2. Spring Boot Auto-Configuration
-When Spring Boot finds Thymeleaf dependency in the Maven POM file, it automatically configures Thymeleaf template engine. 
-No need to manually configure Thymeleaf in our code since it is auto-configured by Spring Boot.
-
-3. Create Thymeleaf views
-See code examples in: src/main/resources/templates
-
-
+Program next steps:
+The user interface can still be finessed much more.  Managers can be given even more functionality.  An Admin role has been
+created in security but has yet to be implemented.  Finally, enhanced content relating to blood donation can be added along 
+with pre-screening forms and other items to enhance the appointment procedure.
